@@ -18,10 +18,16 @@ services:
     container_name: order_service
     networks:
       - microservices-net
+  
+  order2:
+    build: ./order
+    container_name: order_service_2
+    networks:
+      - microservices-net
 
   haproxy:
     image: haproxy:2.8-alpine
-    container_name: haproxy_lb
+    container_name: haproxy_lb_2
     ports:
       - "8000:8000"
     volumes:
@@ -30,6 +36,7 @@ services:
       - inventory
       - order
       - payment
+      - order2
     networks:
       - microservices-net
 
